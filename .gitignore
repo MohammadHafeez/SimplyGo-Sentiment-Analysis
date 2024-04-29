@@ -1,3 +1,5 @@
 *.csv
 *.xlsx
 *.exe
+*.png
+*.pbix

@@ -143,36 +143,36 @@ func scrapeAndFollow(url string) []searchResult {
 	return allExtractedValues
 }
 
-func ScrapeArticleURls() {
+func ScrapeArticleURLs() {
 	url := "https://www.google.com/search?q=simplygo+singapore&sca_esv=72c8a1a5d0cf3c73&tbs=sbd:1&tbm=nws&prmd=insmvbtz&sxsrf=ACQVn088Ww94FpKrKItP5Rsp1nzqSgZ6mg:1712028591321&ei=r3sLZq6cE8mM4-EPiKuq6AU&start=0&sa=N&ved=2ahUKEwjur5_Ay6KFAxVJxjgGHYiVCl04RhDy0wN6BAgBEAQ&biw=1920&bih=957&dpr=1"
 
 	scrapeResults := scrapeAndFollow(url)
 	
 	file, err := os.Create("results.csv")
-    if err != nil {
-        fmt.Println("Error creating CSV:", err)
-        return
-    }
-    defer file.Close()
+	if err != nil {
+			fmt.Println("Error creating CSV:", err)
+			return
+	}
+	defer file.Close()
 
-    writer := csv.NewWriter(file)
-    defer writer.Flush()
+	writer := csv.NewWriter(file)
+	defer writer.Flush()
 
-    headers := []string{"Date", "Publisher", "Title", "URL"}
-    err = writer.Write(headers)
-    if err != nil {
-        fmt.Println("Error writing header:", err)
-        return
-    }
+	headers := []string{"Date", "Publisher", "Title", "URL"}
+	err = writer.Write(headers)
+	if err != nil {
+			fmt.Println("Error writing header:", err)
+			return
+	}
 
-    for _, result := range scrapeResults {
-        row := []string{result.date, result.publisher, result.title, result.url}
-        err = writer.Write(row)
-        if err != nil {
-            fmt.Println("Error writing row:", err)
-            return
-        }
-    }
+	for _, result := range scrapeResults {
+			row := []string{result.date, result.publisher, result.title, result.url}
+			err = writer.Write(row)
+			if err != nil {
+					fmt.Println("Error writing row:", err)
+					return
+			}
+	}
 
-    fmt.Println("Search results saved to results.csv")
+	fmt.Println("Search results saved to results.csv")
 }
